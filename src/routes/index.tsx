@@ -1,5 +1,5 @@
 import { createAsync } from "@solidjs/router";
-import { For, Show, createResource } from "solid-js";
+import { For, Show, Suspense } from "solid-js";
 import Counter from "~/components/Counter";
 import { getStakeAccounts } from "~/server/getStakeAccounts";
 
@@ -12,14 +12,14 @@ export default function Home() {
           <span class="mr-5">Hello</span> <img class="w-12 h-12" src="https://unocss.dev/logo.svg" alt="UnoCSS logo" />!
         </div>
       </h1>
-      <Show when={stakeAccounts()} fallback={<p>Loading...</p>}>
-        {(stakeAccounts) => <For each={stakeAccounts()}>{
+      <Suspense fallback={<p>Loading...</p>}>
+        <For each={stakeAccounts()}>{
           (account) => <div class="text-left">
             <p  >Account: {account.account}</p>
             <p>Lamports: {account.lamports}</p>
           </div>
-        }</For>}
-      </Show>
+        }</For>
+      </Suspense>
 
       <Counter />
       <p class="mt-8">
