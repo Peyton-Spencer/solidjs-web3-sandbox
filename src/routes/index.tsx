@@ -1,5 +1,5 @@
 import { createAsync } from "@solidjs/router";
-import { For, Show, Suspense } from "solid-js";
+import { For, Suspense } from "solid-js";
 import Counter from "~/components/Counter";
 import { getStakeAccounts } from "~/server/getStakeAccounts";
 
