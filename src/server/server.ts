@@ -7,6 +7,7 @@ import {
   RpcResponseAndContext,
   SignatureResult,
   SimulatedTransactionResponse,
+  StakeProgram,
   TransactionInstruction,
   TransactionMessage,
   VersionedTransaction,
@@ -14,27 +15,23 @@ import {
 
 // Define the RPC endpoint and the user's wallet public key
 const rpcEndpoint = "https://api.mainnet-beta.solana.com";
-const pubKey = process.env.WALLET as string;
 
 // Create a connection to the Solana network
 const connection = new Connection(rpcEndpoint);
 
-// Convert the wallet public key string to a PublicKey object
-const walletPublicKey = new PublicKey(pubKey);
-
 // Get the program accounts owned by the Stake Program
-const programId = new PublicKey("Stake11111111111111111111111111111111111111");
-const filters = [
-  {
-    memcmp: {
-      offset: 12,
-      bytes: walletPublicKey.toBase58(),
-    },
-  },
-];
 
-export async function getStakeAccounts() {
-  const accounts = await connection.getProgramAccounts(programId, {
+export async function getStakeAccounts(pubKey: PublicKey) {
+  const base58 = pubKey.toBase58();
+  const filters = [
+    {
+      memcmp: {
+        offset: 12,
+        bytes: base58,
+      },
+    },
+  ];
+  const accounts = await connection.getProgramAccounts(StakeProgram.programId, {
     filters,
   });
   // console.log("Stake Accounts:", accounts);
@@ -43,7 +40,7 @@ export async function getStakeAccounts() {
     lamports: account.account.lamports,
     owner: account.account.owner.toBase58(),
   }));
-  return { pubKey, accts };
+  return { pubKey: base58, accts };
 }
 
 export async function getSimulationComputeUnits(
