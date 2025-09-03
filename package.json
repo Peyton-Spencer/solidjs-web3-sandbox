@@ -4,19 +4,25 @@
   "scripts": {
     "dev": "vinxi dev",
     "build": "vinxi build",
-    "start": "vinxi start"
+    "start": "vinxi start",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
-    "@solana/spl-token": "^0.4.6",
-    "@solana/web3.js": "^1.91.3",
-    "@solidjs/router": "^0.13.1",
-    "@solidjs/start": "1.0.0-rc.0",
-    "@unocss/reset": "^0.58.9",
-    "solid-js": "^1.8.16",
-    "unocss": "^0.58.9",
-    "vinxi": "^0.3.11"
+    "@solana/spl-token": "^0.4.14",
+    "@solana/web3.js": "^1.98.4",
+    "@solidjs/router": "0.15.3",
+    "@solidjs/start": "1.1.7",
+    "@unocss/reset": "66.5.0",
+    "solid-js": "^1.9.9",
+    "solid-toast": "^0.5.0",
+    "unocss": "66.5.0",
+    "vinxi": "0.5.8"
   },
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2"
   }
 }
